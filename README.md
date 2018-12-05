@@ -2,6 +2,7 @@
 The Bookshelf collection allows you to view bookshelf metadata as well as to modify the contents of a bookshelf.
 
 ## Development dependecy
+You should have python 3 and pip installed in the development machine
 run `setup.bat` to install all the dependecys.
 
 ## Help for every command
