@@ -19,7 +19,9 @@ run `setup.bat` to install all the dependecys.
 
 ## Search for Books
 `python books.py search <name>`
-    you can pass a optional parameter to this like max response this is defaulted to 20
+
+ You can pass a optional parameter to this like max response this is defaulted to 20
+    
 `python books.py search <name> <max>`
 
 ## Read Books description'
