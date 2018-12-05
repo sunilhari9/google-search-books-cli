@@ -71,7 +71,7 @@ def add(id):
 @main.command()
 @click.argument('id')
 def read(id):
-    """This return a particular book from the given id on Google Books"""
+    """This return Description of the Book"""
     url_format = 'https://www.googleapis.com/books/v1/volumes/{}'
     response = requests.get(url_format.format(id))        
     click.echo(response.json()['volumeInfo']['description'])
@@ -90,7 +90,7 @@ def mybooks():
         data = json.load(jsonFile) # Read the JSON into the buffer
         jsonFile.close()
         for response in data:        # traversal of local List Books
-            click.echo("Book Name: "+ response['volumeInfo']['title']+" Id: "+response['id'])
+            click.echo("Book Name: "+ response['volumeInfo']['title'])
     else:      
         click.echo("No Books..!")
 
