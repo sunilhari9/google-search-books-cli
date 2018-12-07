@@ -2,6 +2,7 @@ import click
 import requests
 import json
 import os
+from operator import itemgetter
 from pyfiglet import Figlet
 f = Figlet(font='big')
 
@@ -85,14 +86,22 @@ def clearbooks():
     print(f.renderText("Cleared"))
     
 @main.command()
-def mybooks():
+@click.argument('sortby',default='',metavar='<Sort by>')
+def mybooks(sortby):
     """This return a List of books in your shelf"""
     if os.path.exists("bookshelf.json"):
         jsonFile = open("bookshelf.json", "r") # Open the JSON file for reading
         data = json.load(jsonFile) # Read the JSON into the buffer
         jsonFile.close()
-        for response in data:        # traversal of local List Books
-            click.echo("Book Name: "+ response['volumeInfo']['title'])
+        if not sortby:
+            newlist = data
+        else:
+            newlist = sorted(data, key=lambda e: e.get('volumeInfo', {}).get(sortby))
+        #newlist = sorted(data, key=lambda x: ([x]['title']))
+        #print(newList)
+        for response in newlist:        # traversal of local List Books
+            #print(response['volumeInfo']['pageCount'])
+            click.echo("Book Name: "+ response['volumeInfo']['title'] + ", No Of Pages: " +str(response['volumeInfo']['pageCount']))
     else:      
         click.echo("No Books..!")
 

@@ -36,6 +36,8 @@ run `setup.bat` to install all the dependecys.
     
 ## Reading books from Shelf
 `python books.py mybooks`
+`python books.py mybooks title`
+`python books.py mybooks pageCount`
 
 ## Clearing all books from Shelf
 `python books.py clearbooks`
