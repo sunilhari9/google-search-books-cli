@@ -45,28 +45,30 @@ def add(id):
     if not id:
         id = click.prompt('Please enter a Book Id to add it in to your shelf')       
     bookDetails = requests.get(url_format.format(id))
-    if os.path.exists("bookshelf.json"):
-        jsonFile = open("bookshelf.json", "r") # Open the JSON file for reading
-        data = json.load(jsonFile) # Read the JSON into the buffer
-        jsonFile.close()
-        available = False
-        for response in data:        # traversal of local List Books
-            if (response['id'] == id):
-                available = True            
-        if not available:
+    if('error' not in bookDetails.json()):
+        if os.path.exists("bookshelf.json"):
+            jsonFile = open("bookshelf.json", "r") # Open the JSON file for reading
+            data = json.load(jsonFile) # Read the JSON into the buffer
+            jsonFile.close()
+            available = False
+            for response in data:        # traversal of local List Books
+                if (response['id'] == id):
+                    available = True            
+                if not available:
+                    with open('bookshelf.json', 'w') as outfile:
+                        data.append(bookDetails.json())
+                        json.dump(data, outfile)
+                        print(f.renderText("Added Sucessfully"))
+                else:
+                    click.echo("Already in your shelf..!")   
+        else:
             with open('bookshelf.json', 'w') as outfile:
+                data = []
                 data.append(bookDetails.json())
                 json.dump(data, outfile)
-                print(f.renderText("Added Sucessfully"))
-        else:
-            click.echo("Already in your shelf..!")   
-    
+                print(f.renderText("Added Sucessfully"))                
     else:
-        with open('bookshelf.json', 'w') as outfile:
-            data = []
-            data.append(bookDetails.json())
-            json.dump(data, outfile)
-            print(f.renderText("Added Sucessfully"))
+        click.echo("Not Valid Book please enter valid ID..!") 
         
 @main.command()
 @click.argument('id')
