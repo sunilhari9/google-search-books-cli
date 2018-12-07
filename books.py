@@ -50,17 +50,17 @@ def add(id):
             jsonFile = open("bookshelf.json", "r") # Open the JSON file for reading
             data = json.load(jsonFile) # Read the JSON into the buffer
             jsonFile.close()
-            available = False
             for response in data:        # traversal of local List Books
+                available = False
                 if (response['id'] == id):
                     available = True            
-                if not available:
-                    with open('bookshelf.json', 'w') as outfile:
-                        data.append(bookDetails.json())
-                        json.dump(data, outfile)
-                        print(f.renderText("Added Sucessfully"))
-                else:
-                    click.echo("Already in your shelf..!")   
+            if(not available):
+                with open('bookshelf.json', 'w') as outfile:
+                    data.append(bookDetails.json())
+                    json.dump(data, outfile)
+                    print(f.renderText("Added Sucessfully"))
+            else:
+                click.echo("Already in your shelf..!")   
         else:
             with open('bookshelf.json', 'w') as outfile:
                 data = []
